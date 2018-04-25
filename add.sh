@@ -29,7 +29,7 @@ function addModule() {
 	location="ingress-nginx/images/nginx/build.sh"
 	hash256="42ba47fdfd5c39b3665235ea9e32db26f6673100fe6994af72387bcc38d3f311"
 	sed -i -r "s/(^# download, verify and extract the source files)/\1\nget_src $hash256 \"https:\/\/github.com\/annProg\/ngx_http_reqstat\/archive\/v1.0.tar.gz\"\n/g" $location
-	sed -i 's/^WITH_MODULES="/WITH_MODULES="--add-module=$BUILD_PATH\/ngx_http_reqstat-master /g' $location
+	sed -i 's/^WITH_MODULES="/WITH_MODULES="--add-module=$BUILD_PATH\/ngx_http_reqstat-1.0 /g' $location
 }
 
 init
