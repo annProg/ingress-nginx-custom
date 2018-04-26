@@ -42,6 +42,29 @@ function addModule() {
 	sed -i 's/^WITH_MODULES="/WITH_MODULES="--add-module=$BUILD_PATH\/ngx_http_reqstat-1.0 /g' $location
 }
 
+function title() {
+	RED_COLOR='\E[1;31m'
+	RESET='\E[0m'
+	echo -e "\n$RED_COLOR========= $1 =========$RESET"
+}
+
+function compile() {
+	echo -e "\nManual operation the following steps:"
+	title "1. Prepare Nginx image"
+	echo "cd $DIR_INGRESS/images/nginx"
+	echo "ARCH=amd64 TAG=reqstat make container"
+
+	title "2. Prepare golang"
+	echo "cd $DIR_INGRESS"
+	echo "dep ensure"
+	echo "dep ensure -update"
+
+	title "3. Compile ingress-contorller"
+	echo "cd $DIR_INGRESS"
+	echo "ARCH=amd64 BASEIMAGE=quay.io/kubernetes-ingress-controller/nginx-amd64:reqstat make docker-build"
+}	
+
 init
 ngxTemplate
 addModule
+compile
