@@ -17,15 +17,16 @@ BASE_DIR=`echo $GOPATH |cut -f1 -d':'`
 DIR="$BASE_DIR/src/k8s.io"
 [ ! -d $DIR ] && mkdir $DIR
 DIR_INGRESS="$DIR/ingress-nginx"
-RELEASE=0.13.0
-TARFILE="nginx-${RELEASE}.tar.gz"
 
 function init() {
-	[ ! -f $TARFILE ] && \
-	wget https://github.com/kubernetes/ingress-nginx/archive/$TARFILE
-	rm -fr $DIR_INGRESS
-	tar zxvf $TARFILE
-	mv ingress-nginx-nginx-${RELEASE} $DIR_INGRESS
+	if [ -d $DIR_INGRESS ];then
+		cd $DIR_INGRESS
+		git checkout *
+		git pull
+	else
+		cd $DIR && \
+		git clone https://github.com/kubernetes/ingress-nginx
+	fi
 }
 
 function ngxTemplate() {
