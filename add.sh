@@ -13,7 +13,9 @@ if [ "$GOPATH"x == ""x ]; then
 	exit 1
 fi
 
-DIR="$GOPATH/src/k8s.io"
+BASE_DIR=`echo $GOPATH |cut -f1 -d':'`
+DIR="$BASE_DIR/src/k8s.io"
+[ ! -d $DIR ] && mkdir $DIR
 DIR_INGRESS="$DIR/ingress-nginx"
 
 function init() {
@@ -22,7 +24,7 @@ function init() {
 		git checkout *
 		git pull
 	else
-		cd $DIR
+		cd $DIR && \
 		git clone https://github.com/kubernetes/ingress-nginx
 	fi
 }
