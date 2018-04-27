@@ -60,7 +60,7 @@ function compile() {
 
 	title "3. Compile ingress-contorller"
 	echo "cd $DIR_INGRESS"
-	echo "ARCH=amd64 BASEIMAGE=quay.io/kubernetes-ingress-controller/nginx-amd64:reqstat make container"
+	echo "ARCH=amd64 BASEIMAGE=quay.io/kubernetes-ingress-controller/nginx-amd64:reqstat make build container"
 }	
 
 init
