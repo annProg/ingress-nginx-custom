@@ -23,9 +23,12 @@ function init() {
 		cd $DIR_INGRESS
 		git checkout *
 		git pull
+		git checkout nginx-0.13.0
 	else
 		cd $DIR && \
 		git clone https://github.com/kubernetes/ingress-nginx
+		cd ingress-nginx
+		git checkout nginx-0.13.0
 	fi
 }
 
@@ -36,9 +39,9 @@ function ngxTemplate() {
 
 function addModule() {
 	location="$DIR_INGRESS/images/nginx/build.sh"
-	hash256="42ba47fdfd5c39b3665235ea9e32db26f6673100fe6994af72387bcc38d3f311"
-	sed -i -r "s/(^# download, verify and extract the source files)/\1\nget_src $hash256 \"https:\/\/github.com\/annProg\/ngx_http_reqstat\/archive\/v1.0.tar.gz\"\n/g" $location
-	sed -i 's/^WITH_MODULES="/WITH_MODULES="--add-module=$BUILD_PATH\/ngx_http_reqstat-1.0 /g' $location
+	hash256="ce93155f924fabb17f8f8cead25f6c10f3996a7652c86a74e15a937f8af44d00"
+	sed -i -r "s/(^# download, verify and extract the source files)/\1\nget_src $hash256 \"https:\/\/github.com\/annProg\/ngx_http_reqstat\/archive\/v1.1.tar.gz\"\n/g" $location
+	sed -i 's/^WITH_MODULES="/WITH_MODULES="--add-module=$BUILD_PATH\/ngx_http_reqstat-1.1 /g' $location
 }
 
 function title() {
