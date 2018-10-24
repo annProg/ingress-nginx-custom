@@ -30,6 +30,9 @@ function init() {
 		cd ingress-nginx
 		git checkout nginx-0.20.0
 	fi
+
+	# fix Makefile
+	sed -i 's/--no-cache --pull/--no-cache/g' Makefile
 }
 
 function ngxTemplate() {
