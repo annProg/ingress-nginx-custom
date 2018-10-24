@@ -37,7 +37,7 @@ function init() {
 
 function ngxTemplate() {
 	location="$DIR_INGRESS/rootfs/etc/nginx/template/nginx.tmpl"
-	sed -i 's/^http {/http {\nreq_status_zone letvapp "$proxy_host" 2M;\nreq_status letvapp;\nreq_status_lazy on;\nserver {\nlisten 8000;\nallow 10.0.0.0\/8;\nallow 127.0.0.0\/8;\ndeny all;\nlocation \/reqstat {\nreq_status_show letvapp;\n}\n}\n/g' $location
+	sed -i 's/^http {/http {\nreq_status_zone letvapp "$service_name" 2M;\nreq_status letvapp;\nreq_status_lazy off;\nserver {\nlisten 8000;\nallow 10.0.0.0\/8;\nallow 127.0.0.0\/8;\ndeny all;\nlocation \/reqstat {\nreq_status_show letvapp;\n}\n}\n/g' $location
 }
 
 function addModule() {
